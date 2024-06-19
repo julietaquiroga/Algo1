@@ -1,0 +1,45 @@
+module Solucion where
+
+-- Ej1
+aproboMasDeNMaterias :: [(String, [Int])] -> String-> Int ->Bool
+aproboMasDeNMaterias ((p,notas):rs) nombre n | p == nombre = cuantosMayoresA4 notas > n
+                                             | otherwise = aproboMasDeNMaterias rs nombre n 
+
+
+
+cuantosMayoresA4 :: [Int] -> Int
+cuantosMayoresA4 [] = 0
+cuantosMayoresA4 (x:xs) | x >= 4 = 1 + cuantosMayoresA4 xs
+                        | otherwise= cuantosMayoresA4 xs
+
+
+-- Ej2
+buenosAlumnos:: [(String, [Int])] -> [String]
+buenosAlumnos [] = []
+buenosAlumnos ((alumno,notas):rs) | promedio notas >= 8 && not (tieneAplazos notas) = alumno : buenosAlumnos rs   
+                                  | otherwise = buenosAlumnos rs                  
+promedio :: [Int] -> Float
+promedio notas = fromIntegral (sumatoria notas) / fromIntegral (longitud notas)
+
+sumatoria :: [Int] -> Int
+sumatoria [] = 0
+sumatoria (x:xs) = x + sumatoria xs 
+
+longitud :: [Int] -> Int
+longitud [] = 0
+longitud (x:xs) = 1 + longitud xs 
+
+tieneAplazos :: [Int] ->Bool
+tieneAplazos [] = False
+tieneAplazos (x:xs) | x<4 = True
+                    | otherwise = tieneAplazos xs
+
+-- Ej3
+--mejorPromedio::  [(String, [Int])] -> String
+
+
+
+
+
+-- Ej4
+--seGraduoConHonores :: [(String, [Int])] -> Int -> String -> Bool
