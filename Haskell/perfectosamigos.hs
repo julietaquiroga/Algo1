@@ -83,11 +83,14 @@ amigos n [] = []
 amigos n (x:xs) | sonAmigos n x = (n,x) : amigos n xs
                 | otherwise = amigos n xs
 
-eliminarRepetidos :: [(Int,Int)] -> [(Int,Int)]
+eliminarRepetidos :: (Eq t) => [(t,t)] -> [(t,t)]
 eliminarRepetidos [] = []
 eliminarRepetidos [x] = [x]
-eliminarRepetidos ((a,b):(x,y):xs) | a == y && b == x && xs == [] = [(a,b)]
-                                   | a == x && b == y && xs == [] = [(a,b)]
-                                   | a == y && b == x = eliminarRepetidos ((a,b):xs)
-                                   | a == x && b == y = eliminarRepetidos ((a,b):xs)
-                                   | otherwise = [(x,y)] ++ eliminarRepetidos ((a,b):xs)
+eliminarRepetidos ((x,y):xs) | estaContenido (x,y) xs == False = (x,y) : eliminarRepetidos xs
+                             | otherwise = eliminarRepetidos xs
+
+estaContenido :: (Eq t) => (t,t) -> [(t,t)] -> Bool
+estaContenido n [] = False
+estaContenido (a,b) ((x,y):xs) | a == x && b == y = True
+                               | a == y && b == x = True
+                               | otherwise = estaContenido (a,b) xs
