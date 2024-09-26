@@ -85,6 +85,7 @@ amigos n (x:xs) | sonAmigos n x = (n,x) : amigos n xs
 
 eliminarRepetidos :: [(Int,Int)] -> [(Int,Int)]
 eliminarRepetidos [] = []
+eliminarRepetidos [x] = [x]
 eliminarRepetidos ((a,b):(x,y):xs) | a == y && b == x && xs == [] = [(a,b)]
                                    | a == x && b == y && xs == [] = [(a,b)]
                                    | a == y && b == x = eliminarRepetidos ((a,b):xs)
